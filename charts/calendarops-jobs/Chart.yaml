@@ -1,0 +1,27 @@
+apiVersion: v2
+name: calendarops-jobs
+description: Kubernetes CronJobs that generate calendar, federal holiday, fiscal, CSV, JSON, SVG, and iCalendar reports.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+kubeVersion: ">=1.27.0-0"
+home: https://make-a-calendar.com/
+sources:
+  - https://github.com/makeacalendar/make-a-calendar-calendarops
+maintainers:
+  - name: Ethan — Make a Calendar
+keywords: [calendar, cronjob, reports, scheduling, payroll, fiscal, icalendar]
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: Online ICS Generator
+      url: https://make-a-calendar.com/ical-generator
+    - name: Pay Period Calendar
+      url: https://make-a-calendar.com/pay-period-calendar
+    - name: Printable 2027 Calendar
+      url: https://make-a-calendar.com/yearly-calendars/2027
+    - name: Blank Calendar Templates
+      url: https://make-a-calendar.com/pages/blank-calendar
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial exporter chart with CronJob controls, retry policies, and configurable persistent or ephemeral output.
