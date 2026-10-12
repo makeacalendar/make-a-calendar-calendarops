@@ -3,7 +3,15 @@
 
 
 
+
+
+
+
 **Kubernetes-native calendar generation, scheduling intelligence, and automated reporting infrastructure.**
+
+
+
+
 
 
 
@@ -13,12 +21,24 @@ CalendarOps Suite is an independent open-source project created by Ethan, the ma
 
 
 
-> **Status: experimental, version 0.1.0.** The GitHub repository is public. GitHub Pages documentation and the Helm repository index are published, and three versioned chart archives are available in GitHub Releases. The multi-architecture GHCR image ghcr.io/makeacalendar/make-a-calendar-calendarops:0.1.0 is public. Its configured high/critical vulnerability scan passed; Kubernetes deployment has not been verified. The release remains experimental; verify installation instructions before production use.
+
+
+
+
+> **Status: experimental, version 0.1.0.** The GitHub repository is public. GitHub Pages documentation and the Helm repository index are published, and three versioned chart archives are available in GitHub Releases, and all three charts are indexed on Artifact Hub with clickable Make a Calendar links. The multi-architecture GHCR image ghcr.io/makeacalendar/make-a-calendar-calendarops:0.1.0 is public. Its configured high/critical vulnerability scan passed; Kubernetes deployment has not been verified. The release remains experimental; verify installation instructions before production use.
+
+
+
+
 
 
 
 
 ## What is included
+
+
+
+
 
 
 
@@ -32,12 +52,24 @@ CalendarOps Suite is an independent open-source project created by Ethan, the ma
 
 
 
+
+
+
+
 ## Local development
 
 
 
 
+
+
+
+
 Requires Go 1.27.2 for this source snapshot; the provided environment currently has no Go toolchain, so commands below have not been verified here.
+
+
+
+
 
 
 
@@ -52,7 +84,15 @@ curl http://localhost:8080/v1/calendar/month/2027/1
 
 
 
+
+
+
+
 Export examples:
+
+
+
+
 
 
 
@@ -67,7 +107,15 @@ go run ./cmd/calendarops-export --type fiscal --year 2027 --pattern 445 --format
 
 
 
+
+
+
+
 ## Install Helm charts
+
+
+
+
 
 
 
@@ -82,7 +130,15 @@ helm install calendarops ./charts/calendarops-suite
 
 
 
+
+
+
+
 Install from the public Helm repository with `helm repo add calendarops https://makeacalendar.github.io/make-a-calendar-calendarops/`, then run `helm install calendarops calendarops/calendarops-suite`. Pull the public image with `docker pull ghcr.io/makeacalendar/make-a-calendar-calendarops:0.1.0`. The [developer documentation](https://makeacalendar.github.io/make-a-calendar-calendarops/) includes API and deployment guides.
+
+
+
+
 
 
 
@@ -92,49 +148,8 @@ Install from the public Helm repository with `helm repo add calendarops https://
 
 
 
+
+
+
+
 | Method and route | Purpose |
-|---|---|
-| `GET /healthz`, `/readyz`, `/metrics` | Health and operational metrics |
-| `GET /v1/calendar/month/{year}/{month}` | Month rows, weekdays, and ISO week fields |
-| `GET /v1/calendar/year/{year}` | Twelve month grids |
-| `GET /v1/holidays/us/{year}` | Observed federal holiday dataset |
-| `GET /v1/business-days?start=…&end=…` | Weekday count; independently select `includeStart` and `includeEnd` |
-| `GET /v1/business-days/add?date=…&days=…&direction=next\|previous` | Add or subtract business days |
-| `GET /v1/fiscal/{445\|454\|544}?year=…` | Retail fiscal period boundaries |
-| `GET /v1/pay-periods` | Nominal and adjusted weekly/biweekly/semi-monthly/monthly dates |
-| `GET /v1/shift-schedule` | Bounded duty-date sequence for named cycles |
-| `GET /v1/exports/month.svg/{year}/{month}` | SVG month grid |
-| `GET /v1/exports/holidays.ics?year=…` | Date-only holiday calendar |
-
-
-
-
-The OpenAPI document is at [`openapi.yaml`](openapi.yaml). API years are bounded. Errors use JSON and HTTP 400 for invalid parameters.
-
-
-
-
-## Calculation contracts and limits
-
-
-
-
-A `Date` represents a Gregorian civil date with no time or time zone. Business-day defaults exclude Saturday/Sunday and modern US federal observed holidays. A range defaults to `(start, end]`; callers may select each endpoint independently. A 4-4-5 year starts on the Sunday nearest February 1; a 53rd week extends period 12. Payroll schedules report nominal pay dates and weekend/federal-holiday adjustments only; there is no salary, tax, withholding, or benefits calculation. Shift output is a duty-date visualization, not a legal working-hours assessment.
-
-
-
-
-Federal holiday output models the current statutory set, not historical legal changes. ICS output uses all-day `VALUE=DATE` events; SVG text is escaped. PDF conversion is not provided. The project makes no enterprise-readiness or zero-vulnerability claim.
-
-
-
-
-## More documentation
-
-
-
-
-- [Getting started](docs/getting-started.md)
-- [Architecture and date model](docs/architecture.md)
-- [API reference](docs/api-reference.md)
-- [Business-day rules](docs/business-day-engine.md)
