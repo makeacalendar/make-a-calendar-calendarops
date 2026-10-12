@@ -43,8 +43,5 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           provenance: true
           sbom: true
-      - name: Make the GHCR package public
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PACKAGE: ${{ github.event.repository.name }}
-        run: gh api --method PATCH "/user/packages/container/${PACKAGE}/visibility" -f visibility=public
+
+
