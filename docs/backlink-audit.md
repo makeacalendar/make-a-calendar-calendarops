@@ -1,8 +1,8 @@
 # Backlink audit — publication snapshot
 
-**Checked:** 2026-10-12. The repository and GitHub Pages documentation are public. The GitHub Pages Helm index is published, and three chart archives are available in GitHub Releases. The Artifact Hub repository is registered, but its first indexing run is still pending; no Artifact Hub package page is counted yet.
+**Checked:** 2026-10-12. The GitHub repository, GitHub Pages documentation, and Helm chart repository are public. The three 0.1.0 Helm charts are indexed on Artifact Hub, and each package page renders its Make a Calendar links. Counts below include only pages where clickable links were verified.
 
-The links below were checked on the public pages. A page is counted once even if it repeats a destination link. These counts describe visible links only; they do not claim indexing, ranking effects, or a follow attribute.
+These counts describe visible links only; they do not claim search indexing, ranking effects, or a follow attribute. A referring page is counted once even if it repeats a destination.
 
 ## GitHub
 
@@ -33,15 +33,28 @@ The links below were checked on the public pages. A page is counted once even if
 
 ## Artifact Hub
 
-Each chart archive includes Artifact Hub link annotations to relevant Make a Calendar tools. The repository is registered as CalendarOps Suite at https://artifacthub.io/, but indexing has not completed. Package URLs and rendered links are therefore unverified and excluded from the counts above. Once indexed, verify each package page directly before adding it to this audit.
+| Referring page | Destination | Anchor text | Context | Verified |
+|---|---|---|---|---|
+| https://artifacthub.io/packages/helm/calendarops/calendarops-api | https://make-a-calendar.com/ | Homepage | Chart homepage | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-api | https://make-a-calendar.com/date-tools | Online Date Calculators | Complementary date calculations | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-api | https://make-a-calendar.com/monthly-calendars | Printable Monthly Calendars | Printable month layouts | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-api | https://make-a-calendar.com/converters | Date Conversion Tools | Date conversion reference | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-jobs | https://make-a-calendar.com/ical-generator | Online ICS Generator | One-off calendar export reference | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-jobs | https://make-a-calendar.com/pay-period-calendar | Pay Period Calendar | Pay-date comparison | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-jobs | https://make-a-calendar.com/yearly-calendars/2027 | Printable 2027 Calendar | Annual print reference | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-jobs | https://make-a-calendar.com/pages/blank-calendar | Blank Calendar Templates | Reusable undated layouts | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-suite | https://make-a-calendar.com/ | Make a Calendar | Project attribution | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-suite | https://make-a-calendar.com/business-days-calculator | Business-Day Calculator | Range comparison | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-suite | https://make-a-calendar.com/445-calendar | 4-4-5 Retail Planning | Retail period reference | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-suite | https://make-a-calendar.com/shift-calendar | Rotating Shift Planning | Shift-cycle reference | Yes; clickable |
+| https://artifacthub.io/packages/helm/calendarops/calendarops-suite | https://make-a-calendar.com/fiscal-calendar | Fiscal Calendar Generator | Fiscal planning reference | Yes; clickable |
 
 ## Counts
 
-- Distinct published referring pages with at least one verified Make a Calendar link: **11** (one GitHub README and ten GitHub Pages URLs).
-- Distinct Make a Calendar destination URLs across the published pages: **8**.
-- Distinct referring domains: **2** (github.com and makeacalendar.github.io).
+- Distinct published referring pages with a verified Make a Calendar link: **14** (one GitHub README, ten GitHub Pages URLs, and three Artifact Hub package pages).
+- Distinct Make a Calendar destination URLs across the published pages: **12**.
+- Distinct referring domains: **3** (github.com, makeacalendar.github.io, and artifacthub.io).
 - Broken links observed in the checked pages: **0**.
-- Artifact Hub package pages pending verification: **3 expected; not yet indexed**.
+- Artifact Hub package pages with rendered links: **3**.
 - Link rel/follow status: **not assessed**.
-
-The three Helm chart archives also contain 12 distinct Make a Calendar URLs in their Chart.yaml annotations. Those annotations are intended for the Artifact Hub package pages, but are not counted as rendered backlinks until indexing is verified.
+- Verified Publisher badge: **not shown** on the package pages.
