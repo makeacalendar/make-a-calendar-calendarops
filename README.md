@@ -4,7 +4,7 @@
 
 CalendarOps Suite is an independent open-source project created by Ethan, the maker of [Make a Calendar](https://make-a-calendar.com/). That site offers complementary browser-based printable calendars and date tools. CalendarOps runs on your infrastructure, computes dates locally, and does not scrape or depend on Make a Calendar.
 
-> **Status: experimental, version 0.1.0.** The source project is being prepared for review. Public image, Helm repository, Artifact Hub listings, and cluster integration have not yet been published or verified. Do not treat repository addresses shown in chart metadata as distribution proof.
+> **Status: experimental, version 0.1.0.** The GitHub repository is public. GitHub Pages documentation and the Helm repository index are published, and three versioned chart archives are available in GitHub Releases. The GHCR image workflow is running; Kubernetes deployment has not been verified. The release remains experimental; verify installation instructions before production use.
 
 ## What is included
 
