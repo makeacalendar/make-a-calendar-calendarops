@@ -1,0 +1,44 @@
+openapi: 3.1.0
+info:
+  title: CalendarOps Suite API
+  version: 0.1.0
+  description: Date-only calendar, holiday, business-day, retail fiscal and export endpoints.
+servers:
+  - url: http://localhost:8080
+paths:
+  /healthz:
+    get: {summary: Liveness check, responses: {'200': {description: Process is alive}}}
+  /readyz:
+    get: {summary: Readiness check, responses: {'200': {description: Service is ready}}}
+  /metrics:
+    get: {summary: Prometheus metrics, responses: {'200': {description: Prometheus text exposition}}}
+  /v1/calendar/month/{year}/{month}:
+    get:
+      summary: Generate month geometry
+      parameters:
+        - {name: year, in: path, required: true, schema: {type: integer, minimum: 1, maximum: 9998}}
+        - {name: month, in: path, required: true, schema: {type: integer, minimum: 1, maximum: 12}}
+        - {name: weekStart, in: query, schema: {type: string, enum: [monday, sunday], default: monday}}
+      responses: {'200': {description: Deterministic 5- or 6-row calendar}, '400': {description: Invalid input}}
+  /v1/calendar/year/{year}:
+    get: {summary: Generate all twelve month geometries, parameters: [{name: year, in: path, required: true, schema: {type: integer, minimum: 1, maximum: 9998}}], responses: {'200': {description: Year calendar}, '400': {description: Invalid input}}}
+  /v1/holidays/us/{year}:
+    get: {summary: US federal observed holiday dates for 2021 onward, parameters: [{name: year, in: path, required: true, schema: {type: integer, minimum: 1, maximum: 9998}}], responses: {'200': {description: Holiday list}}}
+  /v1/business-days:
+    get:
+      summary: Count weekdays excluding federal observed holidays; endpoint inclusion is configurable
+      parameters: [{name: start, in: query, required: true, schema: {type: string, format: date}}, {name: end, in: query, required: true, schema: {type: string, format: date}}, {name: includeStart, in: query, schema: {type: boolean, default: false}}, {name: includeEnd, in: query, schema: {type: boolean, default: true}}]
+      responses: {'200': {description: Business-day count}, '400': {description: Invalid range}}
+  /v1/fiscal/{pattern}:
+    get: {summary: Retail fiscal periods (NRF-style nearest-February-1 anchor), parameters: [{name: pattern, in: path, required: true, schema: {type: string, enum: [445, 454, 544]}}, {name: year, in: query, required: true, schema: {type: integer}}], responses: {'200': {description: Fiscal period boundaries}, '400': {description: Invalid input}}}
+  /v1/exports/month.svg/{year}/{month}:
+    get: {summary: Render an SVG month grid, parameters: [{name: year, in: path, required: true, schema: {type: integer}}, {name: month, in: path, required: true, schema: {type: integer}}, {name: weekStart, in: query, schema: {type: string, enum: [monday, sunday], default: monday}}, {name: holidays, in: query, schema: {type: boolean, default: true}}], responses: {'200': {description: SVG calendar, content: {image/svg+xml: {schema: {type: string}}}}}}
+  /v1/exports/holidays.ics:
+    get: {summary: Export US holidays as date-only iCalendar events, parameters: [{name: year, in: query, required: true, schema: {type: integer}}], responses: {'200': {description: iCalendar, content: {text/calendar: {schema: {type: string}}}}}}
+
+  /v1/business-days/add:
+    get: {summary: Add or subtract business days, parameters: [{name: date, in: query, required: true, schema: {type: string, format: date}}, {name: days, in: query, required: true, schema: {type: integer, minimum: 0, maximum: 10000}}, {name: direction, in: query, schema: {type: string, enum: [next, previous]}}], responses: {'200': {description: Resulting business date}, '400': {description: Invalid input}}}
+  /v1/pay-periods:
+    get: {summary: Generate nominal and adjusted payroll dates, parameters: [{name: start, in: query, required: true, schema: {type: string, format: date}}, {name: end, in: query, required: true, schema: {type: string, format: date}}, {name: anchor, in: query, required: true, schema: {type: string, format: date}}, {name: cadence, in: query, required: true, schema: {type: string, enum: [weekly, biweekly, semimonthly, monthly]}}, {name: adjust, in: query, schema: {type: string, enum: [next, previous]}}], responses: {'200': {description: Pay-date schedule}, '400': {description: Invalid input}}}
+  /v1/shift-schedule:
+    get: {summary: Generate bounded rotating shift duty dates, parameters: [{name: start, in: query, required: true, schema: {type: string, format: date}}, {name: end, in: query, required: true, schema: {type: string, format: date}}, {name: anchor, in: query, required: true, schema: {type: string, format: date}}, {name: cycle, in: query, required: true, schema: {type: string, enum: [4-on-3-off, 5-on-2-off, 2-2-3]}}], responses: {'200': {description: Shift days}, '400': {description: Invalid input}}}
