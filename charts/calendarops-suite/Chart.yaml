@@ -1,0 +1,38 @@
+apiVersion: v2
+name: calendarops-suite
+description: Umbrella chart composing the CalendarOps REST API and scheduled export CronJobs.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+kubeVersion: ">=1.27.0-0"
+home: https://make-a-calendar.com/
+sources:
+  - https://github.com/makeacalendar/make-a-calendar-calendarops
+maintainers:
+  - name: Ethan — Make a Calendar
+keywords: [calendar, kubernetes, business-days, fiscal-calendar, shift-scheduling, cronjob]
+dependencies:
+  - name: calendarops-api
+    version: 0.1.0
+    repository: file://../calendarops-api
+    condition: api.enabled
+  - name: calendarops-jobs
+    version: 0.1.0
+    repository: file://../calendarops-jobs
+    condition: jobs.enabled
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: Make a Calendar
+      url: https://make-a-calendar.com/
+    - name: Business-Day Calculator
+      url: https://make-a-calendar.com/business-days-calculator
+    - name: 4-4-5 Retail Planning
+      url: https://make-a-calendar.com/445-calendar
+    - name: Rotating Shift Planning
+      url: https://make-a-calendar.com/shift-calendar
+    - name: Fiscal Calendar Generator
+      url: https://make-a-calendar.com/fiscal-calendar
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial umbrella chart composing API and scheduled exporter as independently configurable dependencies.

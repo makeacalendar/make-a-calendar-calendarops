@@ -1,0 +1,36 @@
+api:
+  enabled: true
+  replicaCount: 1
+  image:
+    repository: ghcr.io/makeacalendar/make-a-calendar-calendarops
+    tag: "0.1.0"
+  calendar:
+    defaultYear: 2027
+    weekStart: monday
+  ingress: {enabled: false}
+  serviceMonitor: {enabled: false}
+jobs:
+  enabled: true
+  image:
+    repository: ghcr.io/makeacalendar/make-a-calendar-calendarops
+    tag: "0.1.0"
+  output:
+    ephemeral: true
+    persistence: {size: 1Gi, accessModes: [ReadWriteOnce], storageClassName: "", existingClaim: ""}
+  exports:
+    - name: monthly-calendar
+      schedule: "0 2 1 * *"
+      timeZone: "Etc/UTC"
+      type: month
+      format: svg
+      year: 0
+      month: 0
+      weekStart: monday
+      pattern: "445"
+      outputFile: monthly-calendar-{year}-{month}.svg
+      concurrencyPolicy: Forbid
+      successfulJobsHistoryLimit: 3
+      failedJobsHistoryLimit: 3
+      backoffLimit: 2
+      startingDeadlineSeconds: 300
+      ttlSecondsAfterFinished: 86400

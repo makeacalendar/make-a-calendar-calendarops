@@ -1,0 +1,210 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "api": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "replicaCount": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "digest": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "calendar": {
+          "type": "object"
+        },
+        "ingress": {
+          "type": "object"
+        },
+        "autoscaling": {
+          "type": "object"
+        },
+        "serviceMonitor": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": true
+    },
+    "jobs": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "image": {
+          "type": "object",
+          "properties": {
+            "repository": {
+              "type": "string"
+            },
+            "tag": {
+              "type": "string"
+            },
+            "digest": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": true
+        },
+        "output": {
+          "type": "object"
+        },
+        "exports": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "pattern": "^[a-z0-9]([-a-z0-9]*[a-z0-9])?$"
+              },
+              "schedule": {
+                "type": "string",
+                "minLength": 1
+              },
+              "timeZone": {
+                "type": "string"
+              },
+              "type": {
+                "enum": [
+                  "month",
+                  "year",
+                  "holidays",
+                  "fiscal",
+                  "business-days",
+                  "pay-periods",
+                  "shift-schedule"
+                ]
+              },
+              "format": {
+                "enum": [
+                  "json",
+                  "csv",
+                  "svg",
+                  "ics"
+                ]
+              },
+              "year": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9998
+              },
+              "month": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 12
+              },
+              "weekStart": {
+                "enum": [
+                  "monday",
+                  "sunday"
+                ]
+              },
+              "pattern": {
+                "enum": [
+                  "445",
+                  "454",
+                  "544"
+                ]
+              },
+              "outputFile": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._{}-]+$"
+              },
+              "concurrencyPolicy": {
+                "enum": [
+                  "Allow",
+                  "Forbid",
+                  "Replace"
+                ]
+              },
+              "backoffLimit": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "successfulJobsHistoryLimit": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "failedJobsHistoryLimit": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "startingDeadlineSeconds": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "ttlSecondsAfterFinished": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "start": {
+                "type": "string"
+              },
+              "end": {
+                "type": "string"
+              },
+              "anchor": {
+                "type": "string"
+              },
+              "cadence": {
+                "enum": [
+                  "weekly",
+                  "biweekly",
+                  "semimonthly",
+                  "monthly"
+                ]
+              },
+              "adjust": {
+                "enum": [
+                  "next",
+                  "previous"
+                ]
+              },
+              "cycle": {
+                "enum": [
+                  "4-on-3-off",
+                  "5-on-2-off",
+                  "2-2-3"
+                ]
+              },
+              "includeStart": {
+                "type": "boolean"
+              },
+              "includeEnd": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "name",
+              "schedule",
+              "type",
+              "format",
+              "outputFile"
+            ],
+            "additionalProperties": true
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
