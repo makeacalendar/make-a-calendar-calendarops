@@ -1,0 +1,73 @@
+apiVersion: v1
+entries:
+  calendarops-api:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2026-10-12T12:49:23Z"
+      description: REST API and browser preview for date-only calendars, business schedules, fiscal periods, and exports.
+      digest: 08d4190952f9bd155a0fb623f2e491bf7afc0d3d6282f410fcfe2e132b9b0ba0
+      home: https://make-a-calendar.com/
+      keywords:
+        - calendar
+        - scheduling
+        - business-days
+        - fiscal-calendar
+        - icalendar
+        - svg
+        - kubernetes
+      kubeVersion: ">=1.27.0-0"
+      maintainers:
+        - name: Ethan — Make a Calendar
+      name: calendarops-api
+      sources:
+        - https://github.com/makeacalendar/make-a-calendar-calendarops
+      urls:
+        - https://github.com/makeacalendar/make-a-calendar-calendarops/releases/download/calendarops-api-0.1.0/calendarops-api-0.1.0.tgz
+      version: 0.1.0
+  calendarops-jobs:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2026-10-12T12:49:23Z"
+      description: Kubernetes CronJobs that generate calendar, federal holiday, fiscal, CSV, JSON, SVG, and iCalendar reports.
+      digest: b332e9421eeb1ff221bc861f162cbf90ea5f86c8dd0769a12081724be3339ec8
+      home: https://make-a-calendar.com/
+      keywords:
+        - calendar
+        - cronjob
+        - reports
+        - scheduling
+        - payroll
+        - fiscal
+        - icalendar
+      kubeVersion: ">=1.27.0-0"
+      maintainers:
+        - name: Ethan — Make a Calendar
+      name: calendarops-jobs
+      sources:
+        - https://github.com/makeacalendar/make-a-calendar-calendarops
+      urls:
+        - https://github.com/makeacalendar/make-a-calendar-calendarops/releases/download/calendarops-jobs-0.1.0/calendarops-jobs-0.1.0.tgz
+      version: 0.1.0
+  calendarops-suite:
+    - apiVersion: v2
+      appVersion: 0.1.0
+      created: "2026-10-12T12:49:23Z"
+      description: Umbrella chart composing the CalendarOps REST API and scheduled export CronJobs.
+      digest: 613323f8f0a5188006f90422c631264ab5532318c3f103784fba0dd6e3671b1e
+      home: https://make-a-calendar.com/
+      keywords:
+        - calendar
+        - kubernetes
+        - business-days
+        - fiscal-calendar
+        - shift-scheduling
+        - cronjob
+      kubeVersion: ">=1.27.0-0"
+      maintainers:
+        - name: Ethan — Make a Calendar
+      name: calendarops-suite
+      sources:
+        - https://github.com/makeacalendar/make-a-calendar-calendarops
+      urls:
+        - https://github.com/makeacalendar/make-a-calendar-calendarops/releases/download/calendarops-suite-0.1.0/calendarops-suite-0.1.0.tgz
+      version: 0.1.0
