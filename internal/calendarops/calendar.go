@@ -30,7 +30,7 @@ func (d Date) Equal(o Date) bool { return d==o }
 func IsLeapYear(y int) bool { return y%400==0 || (y%4==0 && y%100!=0) }
 func DaysInMonth(y,m int) int { if m<1||m>12{return 0}; return time.Date(y,time.Month(m)+1,0,12,0,0,0,time.UTC).Day() }
 func DayOfYear(d Date) int { return d.time().YearDay() }
-func ISOWeek(d Date) (int,int) { return d.time().ISOWeek() }
+func ISOWeek(d Date) (int,int) { week,year:=d.time().ISOWeek(); return week,year }
 
 type Cell struct { Date Date `json:"date"`; InMonth bool `json:"inMonth"`; ISOWeek int `json:"isoWeek"`; ISOYear int `json:"isoYear"` }
 type Month struct { Year int `json:"year"`; Month int `json:"month"`; WeekStart string `json:"weekStart"`; Rows [][]Cell `json:"rows"` }
