@@ -22,6 +22,7 @@ entries:
       name: calendarops-api
       sources:
         - https://github.com/makeacalendar/make-a-calendar-calendarops
+      type: application
       urls:
         - https://github.com/makeacalendar/make-a-calendar-calendarops/releases/download/calendarops-api-0.1.0/calendarops-api-0.1.0.tgz
       version: 0.1.0
@@ -46,6 +47,7 @@ entries:
       name: calendarops-jobs
       sources:
         - https://github.com/makeacalendar/make-a-calendar-calendarops
+      type: application
       urls:
         - https://github.com/makeacalendar/make-a-calendar-calendarops/releases/download/calendarops-jobs-0.1.0/calendarops-jobs-0.1.0.tgz
       version: 0.1.0
@@ -69,6 +71,7 @@ entries:
       name: calendarops-suite
       sources:
         - https://github.com/makeacalendar/make-a-calendar-calendarops
+      type: application
       urls:
         - https://github.com/makeacalendar/make-a-calendar-calendarops/releases/download/calendarops-suite-0.1.0/calendarops-suite-0.1.0.tgz
       version: 0.1.0
