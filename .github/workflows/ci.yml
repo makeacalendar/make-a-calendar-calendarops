@@ -1,0 +1,51 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version-file: go.mod
+          cache: true
+      - run: go test ./...
+      - run: go vet ./...
+      - run: go build ./cmd/calendarops-server ./cmd/calendarops-export
+  helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.19.0
+      - run: helm dependency update charts/calendarops-suite
+      - run: helm lint --strict charts/calendarops-api
+      - run: helm lint --strict charts/calendarops-jobs
+      - run: helm lint --strict charts/calendarops-suite
+      - run: helm template api charts/calendarops-api > /tmp/api.yaml
+      - run: helm template jobs charts/calendarops-jobs > /tmp/jobs.yaml
+      - run: helm template suite charts/calendarops-suite > /tmp/suite.yaml
+      - run: helm template hardened charts/calendarops-api --set replicaCount=2 --set autoscaling.enabled=true --set ingress.enabled=true --set serviceMonitor.enabled=true --set networkPolicy.enabled=true > /tmp/hardened.yaml
+      - run: helm template api-only charts/calendarops-suite --set jobs.enabled=false > /tmp/api-only.yaml
+      - run: helm template jobs-only charts/calendarops-suite --set api.enabled=false > /tmp/jobs-only.yaml
+      - run: helm template suite charts/calendarops-suite --set api.replicaCount=3 > /tmp/full.yaml
+  image:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: docker/setup-buildx-action@v3
+      - run: docker build --tag calendarops-suite:ci .
+      - uses: aquasecurity/trivy-action@v0.36.0
+        with:
+          image-ref: calendarops-suite:ci
+          format: table
+          vuln-type: os,library
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'

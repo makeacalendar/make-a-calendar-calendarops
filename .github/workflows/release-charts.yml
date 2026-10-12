@@ -1,0 +1,52 @@
+name: Release Helm charts and publish documentation
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+concurrency:
+  group: calendarops-gh-pages
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: azure/setup-helm@v4
+        with:
+          version: v3.19.0
+      - name: Resolve local umbrella dependencies
+        run: helm dependency update charts/calendarops-suite
+      - name: Publish versioned chart archives and repository index
+        uses: helm/chart-releaser-action@v1.6.0
+        env:
+          CR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check out the chart repository branch for docs
+        uses: actions/checkout@v7
+        with:
+          ref: gh-pages
+          path: pages
+          fetch-depth: 0
+      - name: Add documentation pages without removing chart artifacts
+        run: |
+          mkdir -p pages/docs
+          cp docs/*.md pages/docs/
+          cp openapi.yaml pages/openapi.yaml
+          cp LICENSE pages/LICENSE
+          cp README.md pages/project-readme.md
+          cp site-index.html pages/index.html
+          cp site-config.yml pages/_config.yml
+      - name: Commit documentation update
+        working-directory: pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs openapi.yaml LICENSE project-readme.md index.html _config.yml
+          if git diff --cached --quiet; then
+            echo "Documentation is already current."
+          else
+            git commit -m "Publish documentation site"
+            git push origin gh-pages
+          fi
