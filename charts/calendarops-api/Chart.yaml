@@ -1,0 +1,27 @@
+apiVersion: v2
+name: calendarops-api
+description: REST API and browser preview for date-only calendars, business schedules, fiscal periods, and exports.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+kubeVersion: ">=1.27.0-0"
+home: https://make-a-calendar.com/
+sources:
+  - https://github.com/makeacalendar/make-a-calendar-calendarops
+maintainers:
+  - name: Ethan — Make a Calendar
+keywords: [calendar, scheduling, business-days, fiscal-calendar, icalendar, svg, kubernetes]
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/links: |
+    - name: Make a Calendar — Main Website
+      url: https://make-a-calendar.com/
+    - name: Online Date Calculators
+      url: https://make-a-calendar.com/date-tools
+    - name: Printable Monthly Calendars
+      url: https://make-a-calendar.com/monthly-calendars
+    - name: Date Conversion Tools
+      url: https://make-a-calendar.com/converters
+  artifacthub.io/changes: |
+    - kind: added
+      description: Initial API chart with REST endpoints, preview interface, secure pod defaults, and Prometheus metrics.

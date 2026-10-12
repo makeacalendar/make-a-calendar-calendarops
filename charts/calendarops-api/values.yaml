@@ -1,0 +1,59 @@
+replicaCount: 1
+nameOverride: ""
+fullnameOverride: ""
+image:
+  repository: ghcr.io/makeacalendar/make-a-calendar-calendarops
+  tag: "0.1.0"
+  digest: ""
+  pullPolicy: IfNotPresent
+imagePullSecrets: []
+serviceAccount:
+  create: false
+  name: ""
+service:
+  type: ClusterIP
+  port: 8080
+calendar:
+  defaultYear: 2027
+  weekStart: monday
+env: []
+resources:
+  requests: {cpu: 25m, memory: 32Mi}
+  limits: {cpu: 500m, memory: 128Mi}
+podAnnotations: {}
+podLabels: {}
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65532
+  runAsGroup: 65532
+  fsGroup: 65532
+  seccompProfile: {type: RuntimeDefault}
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities: {drop: [ALL]}
+automountServiceAccountToken: false
+terminationGracePeriodSeconds: 15
+probes:
+  liveness: {path: /healthz, initialDelaySeconds: 5, periodSeconds: 10}
+  readiness: {path: /readyz, initialDelaySeconds: 2, periodSeconds: 5}
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: calendarops.local
+      paths: [{path: /, pathType: Prefix}]
+  tls: []
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 8
+  targetCPUUtilizationPercentage: 75
+networkPolicy:
+  enabled: false
+  ingress: []
+serviceMonitor:
+  enabled: false
+  interval: 30s
+  labels: {}
